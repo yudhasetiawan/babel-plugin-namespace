@@ -1,0 +1,13 @@
+.DS_Store
+build/
+node_modules/
+coverage/
+logs/
+dist/
+ignore/
+lib/
+
+npm-debug.log
+.idea
+*.swp
+*.dist
