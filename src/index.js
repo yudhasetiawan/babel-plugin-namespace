@@ -10,16 +10,9 @@
  */
 import debugInstance from 'debug';
 import generateSourceMaps from './generate-source-maps';
-import pathToRelative from './transform-path-relative';
 import transformModuleNamespace from './transform-namespace';
 
 const debug = debugInstance('babel:plugin:namespace');
-
-export {
-    generateSourceMaps,
-    pathToRelative,
-    transformModuleNamespace,
-};
 
 export default ({ types: t }) => {
     const isRequireCall = (node) => {

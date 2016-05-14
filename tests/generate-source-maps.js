@@ -5,7 +5,7 @@
 /* eslint-env mocha */
 import appRootPath from 'app-root-path';
 import { assert } from 'chai';
-import { generateSourceMaps } from '../src';
+import generateSourceMaps from '../src/generate-source-maps';
 
 describe('Babel plugin module alias', () => {
     describe('can generate the source maps', () => {

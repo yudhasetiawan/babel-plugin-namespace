@@ -5,7 +5,7 @@
 /* eslint-env mocha */
 import path from 'path';
 import { expect } from 'chai';
-import { pathToRelative } from '../src';
+import pathToRelative from '../src/transform-path-relative';
 
 describe('Babel plugin module alias', () => {
     describe('can convert path to relative by the reference path', () => {

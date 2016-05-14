@@ -4,7 +4,8 @@
  */
 /* eslint-env mocha */
 import { expect } from 'chai';
-import { transformModuleNamespace, generateSourceMaps } from '../src';
+import generateSourceMaps from '../src/generate-source-maps';
+import transformModuleNamespace from '../src/transform-namespace';
 
 describe('Babel plugin module alias', () => {
     describe('can transform the module namespace', () => {
