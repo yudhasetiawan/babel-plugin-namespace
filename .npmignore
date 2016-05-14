@@ -5,3 +5,8 @@ logs/
 src/
 
 .idea
+.babelrc
+.editorconfig
+.eslintrc
+.jshintrc
+.travis.yml
