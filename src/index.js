@@ -34,9 +34,9 @@ export default ({ types: t }) => {
     };
 
     /**
-     * Replace the module alias
+     * Replace the module name
      */
-    function resolveModuleAlias(moduleArg, state) {
+    function resolveModuleName(moduleArg, state) {
         if (!t.isStringLiteral(moduleArg)) {
             return null;
         }
@@ -72,7 +72,7 @@ export default ({ types: t }) => {
             return;
         }
 
-        const modulePath = resolveModuleAlias(args[0], state);
+        const modulePath = resolveModuleName(args[0], state);
 
         if (!modulePath) {
             return;
@@ -92,7 +92,7 @@ export default ({ types: t }) => {
             return;
         }
 
-        const modulePath = resolveModuleAlias(moduleArg, state);
+        const modulePath = resolveModuleName(moduleArg, state);
 
         if (!modulePath) {
             return;
