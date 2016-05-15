@@ -1,6 +1,10 @@
-# babel-plugin-namespace
+# babel-plugin-namespace (WIP)
 
 [![Build Status][travis-image]][travis-url] [![npm][npm-badge-version]][npm-url] [![downloads][npm-badge-dm]][npm-url]
+
+> **WIP:** I'll try to remove this flag as soon as possible. :ok_hand:
+
+> So keep your eyes open, please! :see_no_evil:
 
 A [babel](http://babeljs.io) plugin to enable namespacing and rewrite these namespace as an alias for directories as different directories during the Babel process.
 
