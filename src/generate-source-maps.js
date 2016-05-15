@@ -61,7 +61,7 @@ const generateSourceMaps = (options = {}) => {
             }
 
             if (isArray(namespacePath)) {
-                console.warn('Warning: A namespace must be a string'); // eslint-disable-line no-console
+                process.stdout.write('Warning: A namespace must be a string');
 
                 continue;
             }
