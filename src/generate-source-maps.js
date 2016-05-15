@@ -41,7 +41,7 @@ const generateSourceMaps = (options = {}) => {
         excludes = [excludes];
     }
 
-    excludes = splitFlatPath(concat(options.excludes, EXCLUDES_PATH));
+    excludes = splitFlatPath(concat(excludes, EXCLUDES_PATH));
     includes = splitFlatPath(includes.filter((pathName) => excludes.indexOf(pathName) === -1));
     sources = splitFlatPath(
         sources.filter((pathName) => excludes.indexOf(pathName) === -1
