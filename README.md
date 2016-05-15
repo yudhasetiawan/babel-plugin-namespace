@@ -10,9 +10,14 @@ A [babel](http://babeljs.io) plugin to enable namespacing and rewrite these name
 
 ## Description
 
-Instead of using relative paths in your project, you'll be able to use a namespace. Here an simple example:
+Instead of using relative paths in your project, you'll be able to use a namespace to allows you to require a dependency in a way that is more loosely coupled to the directory structure on disk.
 
-**Be Carefull:** This plugin also work with `require()` function.
+**Note:**
+
+- This plugin also work with `require()` function.
+- If you're using [eslint-plugin-import][eslint-plugin-import], you should use [eslint-import-resolver-babel-namespace][eslint-babel-namespace] to avoid having false errors.
+
+# Usage Instructions
 
 ## Installation
 
@@ -22,11 +27,105 @@ Install the plugin
 $ npm install -D babel-plugin-namespace
 ```
 
-Specify the plugin in your `.babelrc` with the custom mapping.
+## Usage
+
+Given the directory structure:
+
+```
+app
+|__ .babelrc
+|__ foo
+|   |__ bar
+|       |__baz.js
+|__ src
+|   |__ models
+|       |__ User.js
+|   |__ controllers
+|       |__ User.js
+|__ package.json
+```
+
+Specify the plugin in your `.babelrc` with the custom configuration.
+
 ```json
 {
   "plugins": [
+    "namespace"
+  ]
+}
+```
+
+**In package.json:**
+
+The most **important** things in your package.json is the *name* field
+
+```json
+{
+  "name": ["my-package"]
+}
+```
+
+Example:
+
+**In src/controllers/User.js:**
+
+```javascript
+// Instead of using this;
+import UserModel from '../models/User';
+
+// Use that:
+import UserModel from 'my-package/models/User';
+
+// => resolves: '../models/User.js';
+// NOTE: "my-package" is come from your package.json
+```
+
+```javascript
+// Instead of using this;
+import baz from '../../foo/bar/baz';
+
+// Use that:
+import baz from 'my-package/foo/bar/baz';
+
+// => resolves: '../../foo/bar/baz.js';
+// NOTE: "foo" directory is created by "includes" field from our configuration
+```
+
+If you've a very-very long package name. This plugin also supports sign expansion (*Use at your own risk*).
+
+- Tilde (`~`)
+```javascript
+import baz from '~/foo/bar/baz';
+
+// => resolves: '../../foo/bar/baz.js';
+
+// You also can remove the first path separator
+import baz from '~foo/bar/baz';
+
+// => resolves: '../../foo/bar/baz.js';
+```
+
+- Colon (`:`)
+```javascript
+import baz from ':/foo/bar/baz';
+
+// => resolves: '../../foo/bar/baz.js';
+
+// You also can remove the first path separator
+import baz from ':foo/bar/baz';
+
+// => resolves: '../../foo/bar/baz.js';
+```
+
+## Options
+
+Use Babel's plugin options by replacing the plugin string with an array of the plugin name and an object with the options:
+
+```js
+{
+  "plugins": [
     ["namespace", {
+      "disableSync": false,
       "sources": [
         "src"
       ],
@@ -45,68 +144,18 @@ Specify the plugin in your `.babelrc` with the custom mapping.
 }
 ```
 
-If you're using [eslint-plugin-import][eslint-plugin-import], you should use [eslint-import-resolver-babel-namespace][eslint-babel-namespace] to avoid having false errors.
+These options are currently available:
 
-## Usage
+Field         | Type           | Default        | Description
+--------------|----------------|----------------|------------
+`disableSync` | `Boolean`      | `false`        | If `true` doesn’t actually *includes* all directories in the first depth of your project root directory. See: `includes`
+`sources`     | `String|Array` | `src`          | The lists of the sources directory. The plugin will translate all values as a source path of the package name (e.g. Pakage name: `"my-package"`; Source Directory: `"src"`; Import Syntax: `import "my-package/foo"`; Transformed: `import "./src/foo"`).
+`includes`    | `String|Array` | depth + 1      | The lists of the included directories. The plugin will translate all values as a suffix of the package name (e.g. Pakage name: `"my-package"`; Include Directory: `"tests"`; Import Syntax: `import "my-package/tests"`; Transformed: `import "./tests"`). By default this plugin will fetch all directories in the first depth of your project root directory. You may want to disable this option by change the `disableSync` to `true`.
+`excludes`    | `String|Array` | `node_modules` | Exclude all of these directories from the source maps generator. This options is still *Buggy*, use at your own risk.
+`namespaces`  | `Object`       | `{}`           | The keys of the `namespaces` object will be used to match against as an import statement. To use a namespace in a file, simply place the *name* of the namespace in your import statement and continue writing the path from there.
 
-Given the directory structure:
 
-```
-/root
-  .babelrc
-  /foo
-    /bar
-      baz.js
-  /src
-    /models
-      User.js
-    /controllers
-      User.js
-  package.json
-```
-
-**In package.json:**
-
-*The most important things in your package.json is the name field*
-
-```json
-{
-  "name": ["my-package-name"]
-}
-```
-
-**In .babelrc:**
-
-```json
-{
-  "presets": ["es2015"],
-  "plugins": [
-    "namespace"
-  ]
-}
-```
-
-**In src/controllers/User.js:**
-
-```javascript
-// Instead of using this;
-import UserModel from '../models/User';
-// Use that:
-import UserModel from 'my-package-name/models/User';
-// => resolves: '../models/User.js';
-// NOTE: "my-package-name" is come from your package.json
-```
-
-```javascript
-// Instead of using this;
-import baz from '../../foo/bar/baz';
-// Use that:
-import baz from 'my-package-name/foo/bar/baz';
-// => resolves: '../../foo/bar/baz.js';
-// NOTE: "foo" directory is created by "includes" field from our configuration
-```
-
-## License
+# License
 
 MIT, see [LICENSE](LICENSE) for details.
 
