@@ -17,9 +17,9 @@ Instead of using relative paths in your project, you'll be able to use a namespa
 - This plugin also work with `require()` function.
 - If you're using [eslint-plugin-import][eslint-plugin-import], you should use [eslint-import-resolver-babel-namespace][eslint-babel-namespace] to avoid having false errors.
 
-# Usage Instructions
+## Usage Instructions
 
-## Installation
+### Installation
 
 Install the plugin
 
@@ -27,7 +27,7 @@ Install the plugin
 $ npm install -D babel-plugin-namespace
 ```
 
-## Usage
+### Usage
 
 Given the directory structure:
 
@@ -117,7 +117,7 @@ import baz from ':foo/bar/baz';
 // => resolves: '../../foo/bar/baz.js';
 ```
 
-## Options
+### Options
 
 Use Babel's plugin options by replacing the plugin string with an array of the plugin name and an object with the options:
 
@@ -155,7 +155,7 @@ Field         | Type           | Default        | Description
 `namespaces`  | `Object`       | `{}`           | The keys of the `namespaces` object will be used to match against as an import statement. To use a namespace in a file, simply place the *name* of the namespace in your import statement and continue writing the path from there.
 
 
-# License
+## License
 
 MIT, see [LICENSE](LICENSE) for details.
 
