@@ -10,7 +10,7 @@ A [babel](http://babeljs.io) plugin to enable namespacing and rewrite these name
 
 ## Description
 
-Instead of using relative paths in your project, you'll be able to use a namespace to allows you to require a dependency in a way that is more loosely coupled to the directory structure on disk.
+Instead of using relative paths in your project, you'll be able to use a namespace to allow you to require a dependency in a way that is more loosely coupled to the directory structure on disk.
 
 **Note:**
 
@@ -91,15 +91,15 @@ import baz from 'my-package/foo/bar/baz';
 // NOTE: "foo" directory is created by "includes" field from our configuration
 ```
 
-If you've a very-very long package name. This plugin also supports sign expansion (*Use at your own risk*).
+If you've a very, very long package name. This plugin also supports sign expansion.
 
-- Tilde (`~`)
+- Tilde (`~`) (*Use at your own risk*)
 ```javascript
 import baz from '~/foo/bar/baz';
 
 // => resolves: '../../foo/bar/baz.js';
 
-// You also can remove the first path separator
+// You can also remove the first path separator
 import baz from '~foo/bar/baz';
 
 // => resolves: '../../foo/bar/baz.js';
@@ -111,7 +111,7 @@ import baz from ':/foo/bar/baz';
 
 // => resolves: '../../foo/bar/baz.js';
 
-// You also can remove the first path separator
+// You can also remove the first path separator
 import baz from ':foo/bar/baz';
 
 // => resolves: '../../foo/bar/baz.js';
@@ -148,10 +148,10 @@ These options are currently available:
 
 Field         | Type           | Default        | Description
 --------------|----------------|----------------|------------
-`disableSync` | `Boolean`      | `false`        | If `true` doesn’t actually *includes* all directories in the first depth of your project root directory. See: `includes`
-`sources`     | `String|Array` | `src`          | The lists of the sources directory. The plugin will translate all values as a source path of the package name (e.g. Pakage name: `"my-package"`; Source Directory: `"src"`; Import Syntax: `import "my-package/foo"`; Transformed: `import "./src/foo"`).
-`includes`    | `String|Array` | depth + 1      | The lists of the included directories. The plugin will translate all values as a suffix of the package name (e.g. Pakage name: `"my-package"`; Include Directory: `"tests"`; Import Syntax: `import "my-package/tests"`; Transformed: `import "./tests"`). By default this plugin will fetch all directories in the first depth of your project root directory. You may want to disable this option by change the `disableSync` to `true`.
-`excludes`    | `String|Array` | `node_modules` | Exclude all of these directories from the source maps generator. This options is still *Buggy*, use at your own risk.
+`disableSync` | `Boolean`      | `false`        | If `true`, doesn’t actually *includes* all directories in the first depth of your project root directory. See: `includes`
+`sources`     | `String|Array` | `src`          | The lists of the source directory. The plugin will translate all values as a source path of the package name (e.g. Pakage name: `"my-package"`; Source Directory: `"src"`; Import Syntax: `import "my-package/foo"`; Transformed: `import "./src/foo"`).
+`includes`    | `String|Array` | depth + 1      | The lists of the included directories. The plugin will translate all values as a suffix of the package name (e.g. Pakage name: `"my-package"`; Include Directory: `"tests"`; Import Syntax: `import "my-package/tests"`; Transformed: `import "./tests"`). By default this plugin will fetch all directories in the first depth of your project root directory. You may want to disable this option by changing the `disableSync` to `true`.
+`excludes`    | `String|Array` | `node_modules` | Exclude all of these directories from the source map generator. This option is still *Buggy*, use at your own risk.
 `namespaces`  | `Object`       | `{}`           | The keys of the `namespaces` object will be used to match against as an import statement. To use a namespace in a file, simply place the *name* of the namespace in your import statement and continue writing the path from there.
 
 
