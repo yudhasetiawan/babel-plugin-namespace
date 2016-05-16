@@ -1,12 +1,8 @@
-# babel-plugin-namespace (WIP)
+# babel-plugin-namespace
 
 [![Build Status][travis-image]][travis-url] [![npm][npm-badge-version]][npm-url] [![downloads][npm-badge-dm]][npm-url]
 
-> **WIP:** I'll try to remove this flag as soon as possible. :ok_hand:
-
-> So keep your eyes open, please! :see_no_evil:
-
-A [babel](http://babeljs.io) plugin to enable namespacing and rewrite these namespace as an alias for directories as different directories during the Babel process.
+A [babel][] plugin to enable namespacing and rewrite these namespace as an alias for directories as different directories during the Babel process.
 
 ## Description
 
@@ -14,10 +10,15 @@ Instead of using relative paths in your project, you'll be able to use a namespa
 
 **Note:**
 
+- In this plugin when say **namespace**, it's actually just a **module alias** to translate path of your module from the directory structure on disk. So please don't be **confused** with it.
 - This plugin also work with `require()` function.
 - If you're using [eslint-plugin-import][eslint-plugin-import], you should use [eslint-import-resolver-babel-namespace][eslint-babel-namespace] to avoid having false errors.
 
 ## Usage Instructions
+
+### Requirements
+
+This is a [Babel][babel] plugin so it requires Babel v6 to run.
 
 ### Installation
 
@@ -154,6 +155,9 @@ Field         | Type           | Default        | Description
 `excludes`    | `String|Array` | `node_modules` | Exclude all of these directories from the source map generator. This option is still *Buggy*, use at your own risk.
 `namespaces`  | `Object`       | `{}`           | The keys of the `namespaces` object will be used to match against as an import statement. To use a namespace in a file, simply place the *name* of the namespace in your import statement and continue writing the path from there.
 
+## Why use babel-plugin-namespace?
+
+It's up to you. There's nothing wrong with the current import system. Regardless, you may still consider it useful to namespace your modules under a name of your choosing, such as `M` or `$`, freeing up those "global" modules for use without conflicts.
 
 ## License
 
@@ -166,3 +170,4 @@ MIT, see [LICENSE](LICENSE) for details.
 [travis-url]: https://travis-ci.org/yudhasetiawan/babel-plugin-namespace
 [eslint-babel-namespace]: https://npmjs.com/package/eslint-import-resolver-babel-namespace
 [eslint-plugin-import]: https://npmjs.com/package/eslint-plugin-import
+[babel]: https://babeljs.io
