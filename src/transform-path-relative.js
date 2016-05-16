@@ -4,7 +4,7 @@
  */
 import path from 'path';
 import debugInstance from 'debug';
-import { resolve, resolveChdir } from './utils';
+import { resolve, resolveCwd } from './utils';
 
 const debug = debugInstance('babel:plugin:namespace:transform-path-relative');
 
@@ -36,7 +36,7 @@ const pathToRelative = (currentFile = '', module) => {
         return npmModuleName;
     }
 
-    const sourceDir = resolveChdir(path.dirname(currentFile));
+    const sourceDir = resolveCwd(path.dirname(currentFile));
     const modulePath = resolve(path.normalize(module));
     let moduleMapped = path.relative(sourceDir, modulePath);
 

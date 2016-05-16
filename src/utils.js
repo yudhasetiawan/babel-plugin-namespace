@@ -91,7 +91,7 @@ const resolve = (filename = '') => {
  *
  * @return {String}
  */
-const resolveChdir = (filename = '') => {
+const resolveCwd = (filename = '') => {
     // Support npm modules instead of directories
     if (/^(npm:)/.test(filename)) {
         return filename;
@@ -166,7 +166,7 @@ const isPathExists = (sourcePath) => {
 export {
     signDirectoryExpansion,
     resolve,
-    resolveChdir,
+    resolveCwd,
     getPackageConfig,
     splitFlatPath,
     isPathExists,
