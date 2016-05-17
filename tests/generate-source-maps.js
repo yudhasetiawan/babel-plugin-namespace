@@ -20,6 +20,21 @@ describe('Babel plugin module alias', () => {
             });
         });
 
+        it('should support comma and single space as a separator of string options', () => {
+            const sourceMaps = generateSourceMaps({
+                sources: 'node_modules',
+                includes: 'any  multiple-spaces,,, multiple-commas and-last,,   ,, ,,',
+                excludes: 'any  ex-multiple-spaces,,, ex-multiple-commas and-last,,   ,, ,,'
+            });
+
+            assert.deepEqual(sourceMaps, {
+                'babel-plugin-namespace/multiple-spaces': appRootPath
+                    .resolve('multiple-spaces'),
+                'babel-plugin-namespace/multiple-commas': appRootPath
+                    .resolve('multiple-commas'),
+            });
+        });
+
         it('should will automatic exclude the given directory from the lists', () => {
             const sourceMaps = generateSourceMaps({
                 sources: 'node_modules',

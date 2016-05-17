@@ -5,7 +5,7 @@
 import fs from 'fs';
 import debugInstance from 'debug';
 import appRootPath from 'app-root-path';
-import { concat, isArray } from 'lodash';
+import { concat, isArray, isString } from 'lodash';
 import { getPackageConfig, splitFlatPath, resolve } from './utils';
 import { SOURCES_PATH, EXCLUDES_PATH } from './constants';
 
@@ -19,6 +19,7 @@ const debug = debugInstance('babel:plugin:namespace:generate-source-maps');
  * @return {Object}
  */
 const generateSourceMaps = (options = {}) => {
+    const patternSeparator = /[,\s]/;
     const results = {};
     const packageConfig = getPackageConfig();
     const { namespaces } = options;
@@ -29,16 +30,16 @@ const generateSourceMaps = (options = {}) => {
     debug('Start to create a file map');
 
     // Specially for the package name we use an array
-    if (sources && !isArray(sources)) {
-        sources = [sources];
+    if (isString(sources)) {
+        sources = sources.split(patternSeparator).filter((pathName) => !!pathName);
     }
 
-    if (includes && !isArray(includes)) {
-        includes = [includes];
+    if (isString(includes)) {
+        includes = includes.split(patternSeparator).filter((pathName) => !!pathName);
     }
 
-    if (excludes && !isArray(excludes)) {
-        excludes = [excludes];
+    if (isString(excludes)) {
+        excludes = excludes.split(patternSeparator).filter((pathName) => !!pathName);
     }
 
     excludes = splitFlatPath(concat(excludes, EXCLUDES_PATH));
