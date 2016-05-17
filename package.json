@@ -14,7 +14,7 @@
     "prepublish": "npm run compile",
     "pretest": "npm run lint",
     "test": "npm run test:unit",
-    "test:debug": "DEBUG=babel:plugin:* BABEL_NAMESPACE_TEST_RUNNER=true npm run test",
+    "test:debug": "DEBUG=babel:plugin:* npm run test",
     "test:unit": "nyc --exclude=tests mocha --opts tests/mocha.opts tests",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
