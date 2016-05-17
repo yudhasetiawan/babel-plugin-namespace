@@ -23,6 +23,28 @@ describe('Babel plugin module alias', () => {
 
     describe('should replace for a known path', () => {
         describe('when requiring using the exact name as the package name', () => {
+            it('should skip if not a require statement or invalid arguments', () => {
+                let code = 'var aliasPath = unknownFunction("babel-plugin-namespace");';
+
+                expect(transform(code, transformerOpts).code)
+                    .to.equal('var aliasPath = unknownFunction("babel-plugin-namespace");');
+
+                code = 'var aliasPath = require();';
+
+                expect(transform(code, transformerOpts).code)
+                    .to.equal('var aliasPath = require();');
+
+                code = 'var aliasPath = require([]);';
+
+                expect(transform(code, transformerOpts).code)
+                    .to.equal('var aliasPath = require([]);');
+
+                code = 'var aliasPath = require.resolve("babel-plugin-namespace");';
+
+                expect(transform(code, transformerOpts).code)
+                    .to.equal('var aliasPath = require.resolve("babel-plugin-namespace");');
+            });
+
             it('with a require statement', () => {
                 const code = 'var aliasPath = require("babel-plugin-namespace");';
                 const result = transform(code, transformerOpts);

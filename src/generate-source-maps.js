@@ -25,6 +25,7 @@ const generateSourceMaps = (options = {}) => {
     const { namespaces } = options;
     const namespacePaths = [];
     const { disableSync = false } = options;
+    /* istanbul ignore next: really difficult to enter in a unit test */
     let { includes = [], sources = SOURCES_PATH || [], excludes = [] } = options;
 
     debug('Start to create a file map');
@@ -51,6 +52,7 @@ const generateSourceMaps = (options = {}) => {
 
     if (namespaces) {
         for (const namespace in namespaces) {
+            /* istanbul ignore if */
             if (!namespaces.hasOwnProperty(namespace)) {
                 continue;
             }
@@ -107,6 +109,7 @@ const generateSourceMaps = (options = {}) => {
 
                 return stats.isDirectory();
             } catch (err) {
+                /* istanbul ignore next: really difficult to enter in a unit test for some reason */
                 return false;
             }
         });
@@ -130,6 +133,7 @@ const generateSourceMaps = (options = {}) => {
 
     // Clean up the source maps and make them as absolute path
     for (const namespace in results) {
+        /* istanbul ignore if */
         if (!results.hasOwnProperty(namespace)) {
             continue;
         }

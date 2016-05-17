@@ -16,6 +16,7 @@ const debug = debugInstance('babel:plugin:namespace');
 
 export default ({ types: t }) => {
     const isRequireCall = (node) => {
+        /* istanbul ignore if */
         if (!t.isCallExpression(node)) {
             return false;
         }
@@ -88,6 +89,7 @@ export default ({ types: t }) => {
         const moduleArg = nodePath.node.source;
 
         // usually happens when a conflict with a plugin arises
+        /* istanbul ignore if */
         if (!moduleArg.extra || !moduleArg.extra.rawValue) {
             return;
         }

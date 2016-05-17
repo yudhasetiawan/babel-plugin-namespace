@@ -106,5 +106,90 @@ describe('Babel plugin module alias', () => {
                 npm: appRootPath.resolve('sources/directory'),
             });
         });
+
+        describe('will skip for invalid path', () => {
+            it('should handle undefined value', () => {
+                const valueUndefined = undefined;
+                const valueNull = undefined;
+
+                const sourceMaps = createSourceMaps({
+                    sources: 'sources/directory',
+                    includes: [
+                        valueUndefined,
+                        valueNull
+                    ],
+                    namespaces: {
+                        valueUndefined,
+                        valueNull
+                    }
+                });
+
+                assert.deepEqual(sourceMaps, {
+                    'babel-plugin-namespace': [
+                        appRootPath.resolve('sources/directory')
+                    ],
+                    'babel-plugin-namespace/src': appRootPath.resolve('src'),
+                    'babel-plugin-namespace/tests': appRootPath.resolve('tests'),
+                });
+            });
+
+            it('should handle empty or array value at namespaces field', () => {
+                const sourceMaps = createSourceMaps({
+                    sources: 'sources/directory',
+                    namespaces: {
+                        empty: '',
+                        array: ['sources/directory'],
+                    }
+                });
+
+                assert.deepEqual(sourceMaps, {
+                    'babel-plugin-namespace': [
+                        appRootPath.resolve('sources/directory')
+                    ],
+                    'babel-plugin-namespace/src': appRootPath.resolve('src'),
+                    'babel-plugin-namespace/tests': appRootPath.resolve('tests'),
+                });
+            });
+
+            it('should handle invalid property at namespaces field', () => {
+                const namespaces = {
+                    empty: '',
+                    array: ['sources/directory'],
+                    invalid: 'invalid/not/exists',
+                };
+
+                namespaces.invalid = undefined;
+
+                const sourceMaps = createSourceMaps({
+                    sources: 'sources/directory',
+                    namespaces
+                });
+
+                assert.deepEqual(sourceMaps, {
+                    'babel-plugin-namespace': [
+                        appRootPath.resolve('sources/directory')
+                    ],
+                    'babel-plugin-namespace/src': appRootPath.resolve('src'),
+                    'babel-plugin-namespace/tests': appRootPath.resolve('tests'),
+                });
+            });
+
+            it('should skip value of includes option if exists at namespaces field', () => {
+                const sourceMaps = createSourceMaps({
+                    sources: 'sources/directory',
+                    namespaces: {
+                        tests: 'tests'
+                    }
+                });
+
+                assert.deepEqual(sourceMaps, {
+                    'babel-plugin-namespace': [
+                        appRootPath.resolve('sources/directory')
+                    ],
+                    'babel-plugin-namespace/src': appRootPath.resolve('src'),
+                    tests: appRootPath.resolve('tests'),
+                });
+            });
+        });
     });
 });

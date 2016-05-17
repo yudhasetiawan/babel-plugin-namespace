@@ -37,6 +37,7 @@ const debug = debugInstance('babel:plugin:namespace:helper');
  *
  * @return {String}
  */
+/* istanbul ignore next: not yet :) */
 const signDirectoryExpansion = (value, parentDirectory, sign = '~') => {
     if (!value) {
         return null;
@@ -93,6 +94,7 @@ const resolve = (filename = '') => {
  */
 const resolveCwd = (filename = '') => {
     // Support npm modules instead of directories
+    /* istanbul ignore if: ??? */
     if (/^(npm:)/.test(filename)) {
         return filename;
     }
@@ -119,6 +121,7 @@ const getPackageConfig = () => {
     try {
         packageConfig = require(resolve('package.json')); // eslint-disable-line global-require
     } catch (e) {
+        /* istanbul ignore next */
         packageConfig = {};
     }
 
@@ -132,11 +135,13 @@ const getPackageConfig = () => {
  *
  * @return {Array}
  */
-const splitFlatPath = (directories = []) => [].concat.apply(
-    [],
-    directories.filter((pathName) => pathName && pathName.length > 0)
-        .map((pathName) => pathName.split(path.delimiter))
-);
+const splitFlatPath = (directories = []) => {
+    const results = directories
+        .filter((pathName) => pathName && pathName.length > 0)
+        .map((pathName) => pathName.split(path.delimiter));
+
+    return [].concat.apply([], results);
+};
 
 /**
  * Indicates whether the given path is exists

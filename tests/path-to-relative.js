@@ -19,6 +19,10 @@ describe('Babel plugin module alias', () => {
             expect(pathToRelative(path.join(__filename, 'anything/path'), 'src/index'))
                 .to.equal('../../../src/index');
         });
+
+        it('should translate the module path if the source file is unknown', () => {
+            expect(pathToRelative('unknown', 'src/index')).to.equal('./src/index');
+        });
     });
 
     describe('can convert path to relative when current working directory changed', () => {
