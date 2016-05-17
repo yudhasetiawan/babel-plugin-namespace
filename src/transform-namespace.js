@@ -81,7 +81,7 @@ const transformModuleNamespace = (sourceModule, sourceFile, filesMap) => {
         });
 
         if (!isPathFound) {
-            debug('Module: "%s" (not be found)', module);
+            debug('Module: "%s" (path is not found)', module);
 
             return null;
         }
