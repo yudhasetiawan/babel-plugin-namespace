@@ -66,6 +66,17 @@ The most **important** things in your package.json is the *name* field
 }
 ```
 
+Then the plugins will generate the source maps:
+
+```json
+{
+  "my-package": [
+    "/(...realpath-of...)/my-package/src"
+  ],
+  "my-package/foo": "/(...realpath-of...)/my-package/foo"
+}
+```
+
 Example:
 
 **In src/controllers/User.js:**
@@ -142,6 +153,19 @@ Use Babel's plugin options by replacing the plugin string with an array of the p
       }
     }]
   ]
+}
+```
+
+From these options the plugins will generate the source maps:
+
+```json
+{
+  "my-package": [
+    "/(...realpath-of...)/my-package/src"
+  ],
+  "my-package/foo": "/(...realpath-of...)/my-package/foo",
+  "foo/bar/baz": "/(...realpath-of...)/my-package/path/to/foo/bar/baz",
+  "test": "/(...realpath-of...)/my-package/path/to/foo/bar/tests"
 }
 ```
 
