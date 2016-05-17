@@ -2,36 +2,13 @@
  * BUILT-IN CONSTANTS
  * ==================
  */
-import fs from 'fs';
-import appRootPath from 'app-root-path';
-
-let excludedPaths = [];
-
 /**
- * Can we strip this?
- * Because travis will detect lib as the build destination directory
+ * TODO:
+ * - ???
  */
-if (process.env.BABEL_NAMESPACE_TEST_RUNNER) {
-    excludedPaths = fs.readdirSync(appRootPath.path).filter((pathName) => {
-        // Is it hidden file?
-        if (/^(\.|src|tests)/.test(pathName)) {
-            return false;
-        }
-
-        try {
-            const stats = fs.statSync(appRootPath.resolve(pathName));
-
-            return stats.isDirectory();
-        } catch (err) {
-            return false;
-        }
-    });
-}
-
-/**
- * Is it necessary?
- */
-const EXCLUDES_PATH = excludedPaths.concat(['node_modules']);
+const EXCLUDES_PATH = [
+    'node_modules'
+];
 
 /**
  * TODO:
