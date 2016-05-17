@@ -10,6 +10,7 @@
     "lint": "eslint src tests",
     "compile": "babel src --out-dir lib",
     "coverage": "nyc report --reporter=text-lcov",
+    "coverage:html": "nyc report --reporter=html",
     "coverage:upload": "npm run coverage | coveralls",
     "prepublish": "npm run compile",
     "pretest": "npm run lint",
