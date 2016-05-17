@@ -1,6 +1,6 @@
 # babel-plugin-namespace
 
-[![Build Status][travis-image]][travis-url] [![npm][npm-badge-version]][npm-url] [![downloads][npm-badge-dm]][npm-url]
+[![Build Status][travis-image]][travis-url] [![npm][npm-badge-version]][npm-url] [![downloads][npm-badge-dm]][npm-url] [![Coverage Status][coverage-image]][coverage-url]
 
 A [babel][] plugin to enable namespacing and rewrite these namespace as an alias for directories as different directories during the Babel process.
 
@@ -192,6 +192,8 @@ MIT, see [LICENSE](LICENSE) for details.
 [npm-url]: https://npmjs.com/package/babel-plugin-namespace
 [travis-image]: https://travis-ci.org/yudhasetiawan/babel-plugin-namespace.svg?branch=master
 [travis-url]: https://travis-ci.org/yudhasetiawan/babel-plugin-namespace
+[coverage-image]: https://coveralls.io/repos/github/yudhasetiawan/babel-plugin-namespace/badge.svg?branch=master
+[coverage-url]: https://coveralls.io/github/yudhasetiawan/babel-plugin-namespace?branch=master
 [eslint-babel-namespace]: https://npmjs.com/package/eslint-import-resolver-babel-namespace
 [eslint-plugin-import]: https://npmjs.com/package/eslint-plugin-import
 [babel]: https://babeljs.io

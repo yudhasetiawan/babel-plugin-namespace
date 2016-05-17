@@ -9,10 +9,13 @@
   "scripts": {
     "lint": "eslint src tests",
     "compile": "babel src --out-dir lib",
+    "coverage": "nyc report --reporter=text-lcov",
+    "coverage:upload": "npm run coverage | coveralls",
     "prepublish": "npm run compile",
     "pretest": "npm run lint",
-    "test": "BABEL_NAMESPACE_TEST_RUNNER=true mocha --compilers js:babel-core/register tests",
-    "test-debug": "DEBUG=babel:plugin:* BABEL_NAMESPACE_TEST_RUNNER=true mocha --compilers js:babel-core/register tests -w",
+    "test": "npm run test:unit",
+    "test:debug": "DEBUG=babel:plugin:* BABEL_NAMESPACE_TEST_RUNNER=true npm run test",
+    "test:unit": "nyc --exclude=tests mocha --opts tests/mocha.opts tests",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
@@ -53,10 +56,12 @@
     "babel-preset-es2015-loose": "^7.0.0",
     "babel-preset-stage-0": "^6.5.0",
     "chai": "^3.5.0",
+    "coveralls": "^2.11.9",
     "eslint": "^2.10.0",
     "eslint-config-airbnb-base": "^3.0.1",
     "eslint-plugin-import": "^1.6.1",
     "mocha": "^2.4.5",
+    "nyc": "^6.4.4",
     "semantic-release": "^4.3.5"
   }
 }
