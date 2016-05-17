@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-namespace",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "description": "Babel plugin to enable namespace in require() and ES6 import",
   "main": "lib/index.js",
   "directories": {
