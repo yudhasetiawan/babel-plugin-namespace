@@ -25,9 +25,8 @@
   },
   "keywords": [
     "babel",
-    "plugin",
-    "namespace",
-    "module"
+    "babel-plugin",
+    "namespace"
   ],
   "author": {
     "name": "Yudha Setiawan",
