@@ -13,12 +13,15 @@ describe('Babel plugin module alias', () => {
             expect(transformModuleNamespace('./', __filename, {})).to.equal(null);
         });
 
-        it('should skip for an unknown path', () => {
+        it('should return null for an unknown/invalid path', () => {
             expect(transformModuleNamespace('unknown-lib', __filename, generateSourceMaps()))
                 .to.equal(null);
             expect(transformModuleNamespace(
                 'unknown-lib/foo/bar', __filename, generateSourceMaps()
             )).to.equal(null);
+            expect(transformModuleNamespace(undefined)).to.equal(null);
+            expect(transformModuleNamespace(null)).to.equal(null);
+            expect(transformModuleNamespace('///////')).to.equal(null);
         });
 
         it('should replace for a known path', () => {

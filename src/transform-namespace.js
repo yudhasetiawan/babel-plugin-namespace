@@ -19,37 +19,37 @@ const debug = debugInstance('babel:plugin:namespace:transform-namespace');
  * @return {String}
  */
 const transformModuleNamespace = (sourceModule, sourceFile, filesMap) => {
+    if (!sourceModule) {
+        return null;
+    }
+
+    let module = path.normalize(sourceModule);
+
     // should skip if the path is relative or absolute
-    if (sourceModule && (path.isAbsolute(sourceModule) || /^(\.)/.test(sourceModule))) {
+    if (path.isAbsolute(module) || /^(\.)/.test(module)) {
         return null;
     }
 
     const packageConfig = getPackageConfig();
 
     // TODO: Replace with "signDirectoryExpansion"
-    if (/^(:|~)/.test(sourceModule)) {
-        sourceModule = path.join( // eslint-disable-line no-param-reassign
-            packageConfig.name, sourceModule.substr(1)
-        );
+    if (/^(:|~)/.test(module)) {
+        module = path.join(packageConfig.name, module.substr(1));
     }
 
-    const moduleSplit = sourceModule.split('/');
+    const moduleSplit = module.split('/');
     let sourceModulePath;
 
-    if (!moduleSplit.length) {
-        return null;
-    }
-
-    debug('Start to map a module alias: "%s"', sourceModule);
+    debug('Start to map a module alias: "%s"', module);
 
     /**
      * This loop will check the sources map in reverse mode
      */
     while (moduleSplit.length) {
-        const module = moduleSplit.join('/');
+        const part = moduleSplit.join('/');
 
-        if (filesMap.hasOwnProperty(module)) {
-            sourceModulePath = filesMap[module];
+        if (filesMap.hasOwnProperty(part)) {
+            sourceModulePath = filesMap[part];
 
             break;
         }
@@ -59,7 +59,7 @@ const transformModuleNamespace = (sourceModule, sourceFile, filesMap) => {
 
     // No mapping available
     if (!moduleSplit.length || !sourceModulePath) {
-        debug('Module alias not found: "%s"', sourceModule);
+        debug('Module alias not found: "%s"', module);
 
         return null;
     }
@@ -70,7 +70,7 @@ const transformModuleNamespace = (sourceModule, sourceFile, filesMap) => {
         let isPathFound = false;
 
         sourceModulePath.forEach((sourcePath) => {
-            const newPath = sourceModule.replace(modulePath, sourcePath);
+            const newPath = module.replace(modulePath, sourcePath);
 
             if (isPathExists(sourcePath) && isPathExists(newPath)) {
                 modulePath = newPath;
@@ -81,15 +81,15 @@ const transformModuleNamespace = (sourceModule, sourceFile, filesMap) => {
         });
 
         if (!isPathFound) {
-            debug('Module: "%s" (not be found)', sourceModule);
+            debug('Module: "%s" (not be found)', module);
 
             return null;
         }
     } else {
-        modulePath = sourceModule.replace(modulePath, sourceModulePath);
+        modulePath = module.replace(modulePath, sourceModulePath);
     }
 
-    debug('Module alias: "%s" ("%s")', sourceModule, modulePath);
+    debug('Module alias: "%s" ("%s")', module, modulePath);
 
     return pathToRelative(sourceFile, modulePath);
 };
