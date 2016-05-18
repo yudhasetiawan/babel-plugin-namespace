@@ -1,6 +1,6 @@
 # babel-plugin-namespace
 
-[![Build Status][travis-image]][travis-url] [![npm][npm-badge-version]][npm-url] [![downloads][npm-badge-dm]][npm-url] [![Coverage Status][coverage-image]][coverage-url]
+[![Build Status][travis-image]][travis-url] [![npm][npm-badge-version]][npm-url] [![Coverage Status][coverage-image]][coverage-url]
 
 A [babel][] plugin to enable namespacing and rewrite these namespace as an alias for directories as different directories during the Babel process.
 
@@ -188,7 +188,6 @@ It's up to you. There's nothing wrong with the current import system. Regardless
 MIT, see [LICENSE](LICENSE) for details.
 
 [npm-badge-version]: https://img.shields.io/npm/v/babel-plugin-namespace.svg
-[npm-badge-dm]: https://img.shields.io/npm/dm/babel-plugin-namespace.svg
 [npm-url]: https://npmjs.com/package/babel-plugin-namespace
 [travis-image]: https://travis-ci.org/yudhasetiawan/babel-plugin-namespace.svg?branch=master
 [travis-url]: https://travis-ci.org/yudhasetiawan/babel-plugin-namespace
